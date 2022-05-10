@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<title>Critical Stability</title>
+<script type="text/javascript">
+function CopyDIV(IDS) {
+  document.getElementById('value').value=document.getElementById(IDS).innerHTML;
+  document.getElementById('table').value="name_ligand";
+  document.getElementById("searchform").submit();
+} 
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S4R08KCDP4"></script>
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "30px";
+  document.getElementById("main").style.marginLeft = "30px";
+  document.body.style.backgroundColor = "white";
+} 
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '--ID--');
+</script>
+	<link rel="stylesheet" href="{{ url_for( "static", filename='css/styles.css') }}">
+</head>
+<body>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="https://jkraemer.eu/">About Me</a>
+  <a class="active" href="https://jkraemer.eu/projects.html">My Projects</a>
+  <a href="https://jkraemer.eu/contact.html">Contact</a>
+</div>
+
+	<field style="margin-left: 30px;">
+	<span style="font-size:30px;cursor:pointer; position:fixed;" onclick="openNav()">&#9776;</span>
+	<p>.</p>
+	<div style="margin-left: 30px;">
+		<h1>Critical Stability Constants</h1>
+		<p> This website uses Google analytics and therefore saves personal Data. By using it you agree to this.</p>
+		<p>This is a <b>webinterface for the NIST SRD 46 Database</b>. I will not be adding new entries, however  will keep this up and usable with the old entries for as long as possible. I have also not changed any of the data provided by NIST. I neither take responsibility for any of the data and it's correctnes nor for problems arrising from the use of said data and/or this web interface.</p>
+		<p>The Database has been discontinued in 2004 and later put in the public domain . This webinterface was developed by <b>Julius Anton Kraemer</b>.</p>
+		<p>Credit for the Data: R. M. Smith and A. E. Martell (2004), NIST SRD 46, https://www.nist.gov/srd/nist46 (03.03.2022)</p>
+		<p>Contact: Julius Anton Kraemer | <a href="mailto:juliuskraemer4@gmail.com">juliuskraemer4@gmail.com</a> | <a href="https://github.com/JulleeeK">GitHub</a></p>
+		<h2>Usage: </h2>
+		<p>To search for a ligand first choose wether to search by formula or by name via the drop-down menu. Then enter a part of the ligand name or formula and press enter. If you get more then one suggested ligand, just click on the right one or change your search term. If you have chosen your ligand you can select the correct metal with the dropdown list. Now you will be presented with the thermodynamic data.</p>
+		<h2 id="here">Citation</h2>
+		<p>To cite the data, use the literature given by the database. Once constants have been found, the literature will be displayed below them. Please also mention this website by providing a link to it and my Name.</p>
+		<h2>Database </h2>
+		<form id="searchform" action="#here" method="POST">
+		<div class="select">
+			<select class="select"id="table" name="table">
+  				<option value="name_ligand">Ligand name</option>
+  				<option value="formula">Ligand formula</option>
+			</select>
+			<div class="select_arrow">
+    			</div>
+			</div>
+  			<input type="text" class="css-input" id="value" name="value" value="{{ request.form['value'] }}">
+  			<div class="select">
+  			<select onchange="this.form.submit()" id="metal" name="metal">
+  				<option value="">metal</option>
+  				{% autoescape off %}{{ pos_metals }}{% endautoescape %}
+			</select>
+			<div class="select_arrow">
+    			</div>
+			</div>	
+		</form>
+		<p>Ligands: </p>
+  		<p>{% autoescape off %}{{ ligand_data }}{% endautoescape %}</p>
+		<p>Metal: {% autoescape off %}{{ metal_data }}{% endautoescape %}</p>
+		<p>Constants:</p>
+		<p>{% autoescape off %}{{ constant_data }}{% endautoescape %}</p>
+		<p> If you want to support my future projects, <a href="https://ko-fi.com/kraemerj"><b>buy me a coffee!</b></a></p>
+		</div>
+	</field>
+</body>
+</html>
